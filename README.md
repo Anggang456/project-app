@@ -25,3 +25,9 @@
 6. seed database dengan php artisan db:seed
 7. generate key dengan php artisan key:generate
 8. lalu jalankan php artisan serve untuk menjalankan website
+
+# Physical Data Model
+<img src="https://res.cloudinary.com/dwe1tyctm/image/upload/v1715397606/tes_qv4qay.png" width="420px" />
+
+# Activity Diagram
+<img src="https://res.cloudinary.com/dwe1tyctm/image/upload/v1715397866/Screenshot_2024-05-11_102405_jkllz2.png" width="420px"/>
