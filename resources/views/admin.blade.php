@@ -5,7 +5,10 @@
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center">
             <h6 class="fw-bold">Pemesanan Kendaraan</h6>
+            <div d-flex>
+            <button class="btn btn-success py-2 me-2" onclick="exportToExcel()">Ekspor</button>
             <button class="btn btn-light py-2" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button">Tambah <i class="fa-solid fa-plus"></i></button>@include('add')
+            </div>
           </div>
           <hr>
           <div class="table-responsive" style="height: 180px;">
@@ -16,7 +19,11 @@
                   <th scope="col">Nama</th>
                   <th scope="col" style="white-space: nowrap;">Nomor Telepon</th>
                   <th scope="col" style="white-space: nowrap;">Nama Driver</th>
+                  <th class="d-none" scope="col">Nomor Telepon Driver</th>
                   <th scope="col" style="white-space: nowrap;">Nama Kendaraan</th>
+                  <th class="d-none" scope="col">Full BBM Kendaraan</th>
+                  <th class="d-none" scope="col">Plat Nomor</th>
+                  <th class="d-none" scope="col">Jadwal Service</th>
                   <th scope="col" style="white-space: nowrap;">Konsumsi BBM</th>
                   <th scope="col">Status</th>
                 </tr>
@@ -28,8 +35,12 @@
                   <td>{{ $booking->nama }}</td>
                   <td>{{ $booking->telp }}</td>
                   <td>{{ $booking->driver->nama }}</td>
+                  <td class="d-none">{{ $booking->driver->telp }}</td>
                   <td>{{ $booking->venichle->nama }} ({{ $booking->venichle->type }})</td>
-                  <td>{{ $booking->konsumsi }}</td>
+                  <td class="d-none">{{ $booking->venichle->bbm }} L</td>
+                  <td class="d-none">{{ $booking->venichle->nomor }}</td>
+                  <td class="d-none">{{ $booking->venichle->service }}</td>
+                  <td>{{ $booking->konsumsi }} L</td>
                   @if($booking->status === '')
                   <td>Menunggu Persetujuan</td>
                   @else
@@ -138,6 +149,7 @@
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
   <script>
     var xValues = ["Ditolak", "Disetujui"];
     var yValues = ["{{ $rejected_count }}", "{{ $approve_count }}"];
@@ -175,4 +187,10 @@
         if (start === endValue) clearInterval(counter);
       }, stepTime);
     });
+
+    function exportToExcel() {
+    let table = document.querySelector(".table");
+    let workbook = XLSX.utils.table_to_book(table, {sheet: "Data Booking"});
+    XLSX.writeFile(workbook, 'DataBooking.xlsx');
+    }
   </script>

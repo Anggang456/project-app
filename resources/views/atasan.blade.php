@@ -5,6 +5,7 @@
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center">
             <h6 class="fw-bold">Pemesanan Kendaraan</h6>
+            <button class="btn btn-success py-2 me-2" onclick="exportToExcel()">Ekspor</button>
           </div>
           <hr>
           <div class="table-responsive" style="height: 180px;">
@@ -29,7 +30,7 @@
                   <td>{{ $booking->telp }}</td>
                   <td>{{ $booking->driver->nama }}</td>
                   <td>{{ $booking->venichle->nama }} ({{ $booking->venichle->type }})</td>
-                  <td>{{ $booking->status }}</td>
+                  <td>{{ $booking->konsumsi }} L</td>
                   <td><button data-bs-toggle="modal" data-bs-target="#modal-view-{{ $booking->id }}" class="btn btn-outline-light py-2">Update</button></td>
                   @include('update')
                 </tr>
@@ -169,10 +170,8 @@
       </div>
     </div>
   </div>
-
-
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
   <script>
     var xValues = ["Ditolak", "Disetujui"];
     var yValues = ["{{ $rejected_count }}", "{{ $approve_count }}"];
@@ -210,4 +209,10 @@
         if (start === endValue) clearInterval(counter);
       }, stepTime);
     });
+
+    function exportToExcel() {
+    let table = document.querySelector(".table");
+    let workbook = XLSX.utils.table_to_book(table, {sheet: "Data Booking"});
+    XLSX.writeFile(workbook, 'DataBooking.xlsx');
+    }
   </script>
