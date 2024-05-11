@@ -20,7 +20,7 @@
 1. git clone https://github.com/Anggang456/project-app.git
 2. composer update
 3. ubah .env.example ke .env
-4. tambahkan password database jika perlu
+4. tambahkan nama database, port atau password database jika perlu
 5. migrate database dengan php artisan migrate
 6. seed database dengan php artisan db:seed
 7. generate key dengan php artisan key:generate
