@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body class="px-5" style="background-color: #151515; font-family: 'Lufga', sans-serif;">
+<body class="px-1 px-md-5" style="background-color: #151515; font-family: 'Lufga', sans-serif;">
     <div id="app">
         <nav class="navbar navbar-expand-md py-4">
             <div class="container-fluid d-flex justify-content-center">
@@ -51,21 +51,21 @@
         <div class="modal fade" id="logout" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content bg-dark text-light">
-                    <div class="modal-header border-0">
+                        <div class="modal-header">
+                    <h5 class="modal-title" id="approveConfirmationModalLabel">Konfirmasi</h5>
                         <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h6 class="text-center">Apakah kamu yakin?</h6>
+                        Apakah kamu yakin ingin logout?
                     </div>
-                    <div class="modal-footer border-0">
-                        <a class="btn btn-outline-danger py-2" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                            Lanjutkan
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary py-2" data-bs-dismiss="modal">Batal</button>
+                        <a class="btn btn-outline-light py-2" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                            Ya, Lanjutkan
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
-                        <button type="button" class="btn btn-secondary py-2" data-bs-dismiss="modal">Batal</button>
-
                     </div>
                 </div>
             </div>

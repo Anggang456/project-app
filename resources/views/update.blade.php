@@ -53,15 +53,18 @@
                     <?php
 
                     use App\Models\Approve;
+                    use Illuminate\Support\Facades\Auth;
 
                     $existingApproval = Approve::where('booking_id', $booking->id)->where('user_id',Auth::user()->id)->first(); ?>
                     @if($existingApproval)
                     <button disabled class="btn btn-outline-light py-3 px-5">{{ $existingApproval->status }}</button>
                     @else
-                    <a href="{{ route('app.approve',$booking->id) }}" class="btn btn-outline-light py-3 px-5">Setujui</a>
-                    <a href="{{ route('app.reject',$booking->id) }}" class="btn btn-outline-danger py-3 px-5">Tolak</a>
+                    <button type="button" class="btn btn-outline-light py-3 px-5" data-bs-toggle="modal" data-bs-target="#approveConfirmationModal">Setujui</button>
+                    <button type="button" class="btn btn-outline-danger py-3 px-5" data-bs-toggle="modal" data-bs-target="#rejectConfirmationModal">Tolak</button>
                     @endif
                 </div>
             </div>
         </div>
     </div>
+
+    

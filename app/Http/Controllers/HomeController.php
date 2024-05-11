@@ -10,6 +10,7 @@ use App\Models\Venichle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -30,6 +31,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        Log::info('Memuat halaman dashboard');
         if (Auth::user()->hasRole('admin')) {
             $today = Carbon::today();
             $venichle_count = Venichle::count();
@@ -60,6 +62,7 @@ class HomeController extends Controller
 
     public function booking(Request $request)
     {
+        Log::info('Proses pemesanan dimulai');
         $formattedDate = Carbon::now();
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
@@ -93,11 +96,13 @@ class HomeController extends Controller
         $pemesanan->status = '0';
         $pemesanan->save();
 
+        Log::info('Pemesanan berhasil disimpan', ['user_id' => Auth::user()->id]);
         return redirect()->back()->with('success', 'Pemesanan berhasil disimpan.');
     }
 
     public function approve($id)
     {
+        Log::info('Proses persetujuan dimulai', ['booking_id' => $id]);
         $booking = Booking::find($id);
         $formattedDate = Carbon::now();
         if ($booking) {
@@ -110,6 +115,7 @@ class HomeController extends Controller
             $approve->tgl_persetujuan = $formattedDate;
             $approve->save();
     
+            Log::info('Persetujuan berhasil', ['booking_id' => $id]);
             return redirect()->back()->with('success', 'Status booking berhasil diupdate.');
         } else {
             return redirect()->back()->with('error', 'Terjadi kesalahan.');
@@ -118,6 +124,7 @@ class HomeController extends Controller
     
     public function reject($id)
     {
+        Log::info('Proses penolakan dimulai', ['booking_id' => $id]);
         $booking = Booking::find($id);
         $formattedDate = Carbon::now();
         if ($booking) {
@@ -130,6 +137,7 @@ class HomeController extends Controller
             $approve->tgl_persetujuan = $formattedDate;
             $approve->save();
     
+            Log::info('Penolakan berhasil', ['booking_id' => $id]);
             return redirect()->back()->with('success', 'Status booking berhasil diupdate.');
         } else {
             return redirect()->back()->with('error', 'Terjadi kesalahan.'); // Menambahkan penanganan kesalahan

@@ -101,12 +101,28 @@
                 </div>
             </div>
             <div class="modal-footer border-0">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-light">Simpan</button>
+                <button type="button" id="saveButton" class="btn btn-light">Simpan</button>
             </div>
         </div>
         </form>
     </div>
+</div>
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Apakah kamu yakin ingin menyimpan data ini?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+        <button type="button" class="btn btn-outline-light" id="confirmSave">Ya, Simpan</button>
+      </div>
+    </div>
+  </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -117,6 +133,31 @@ $(document).ready(function() {
         if (selectedAtasan1) {
             $('#floatingSelect2 option[value="' + selectedAtasan1 + '"]').prop('disabled', true); // Non-aktifkan pilihan yang sama dengan Persetujuan 1
         }
+    });
+});
+
+$(document).ready(function() {
+    $('#saveButton').click(function(e) {
+        e.preventDefault(); 
+
+        var isFormValid = true;
+        $('input, select').each(function() { 
+            if ($.trim($(this).val()).length == 0) {
+                isFormValid = false; 
+                $(this).css('border', '2px solid red'); 
+                $(this).css('border', '');
+            }
+        });
+
+        if (isFormValid) {
+            $('#confirmationModal').modal('show');
+        } else {
+            alert('Mohon isi semua field yang diperlukan.');
+        }
+    });
+
+    $('#confirmSave').click(function() {
+        $('form').submit(); 
     });
 });
 </script>

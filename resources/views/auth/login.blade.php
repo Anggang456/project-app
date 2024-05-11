@@ -5,11 +5,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-5">
-                <div class="pb-5">
+                <div class="mb-1">
                     <h4 class="text-center text-success mb-3 fw-bold">Login</h4>
                     <h2 class="text-light text-center fw-bold">Welcome Back</h2>
                 </div>
-                <div class="card py-5 bg-dark border-0">
+                <div class="card py-5 bg-transparent border-0">
                     <div class="card-body px-5">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
