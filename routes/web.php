@@ -19,7 +19,7 @@ Route::get('/', function () {
 })->middleware('guest');
 
 Auth::routes();
-Route::post('/booking', [App\Http\Controllers\HomeController::class, 'booking'])->middleware('role:admin')->name('app.booking');
+Route::post('/booking', [App\Http\Controllers\HomeController::class, 'booking'])->name('app.booking');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('app.home');
 Route::get('/approve/{id}', [App\Http\Controllers\HomeController::class, 'approve'])->name('app.approve');
 Route::get('/reject/{id}', [App\Http\Controllers\HomeController::class, 'reject'])->name('app.reject');
